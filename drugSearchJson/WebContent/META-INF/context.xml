@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE xml>  
+<Context>  
+    <Resource name="jdbc/drug"   
+        auth="Container"   
+        type="javax.sql.DataSource"  
+        factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"   
+        maxActive="100"   
+        maxIdle="30"    
+        maxWait="1000"    
+        username="root"   
+        password="zmh5500699"   
+        driverClassName="com.mysql.jdbc.Driver"   
+        url="jdbc:mysql://localhost:3306/drugs" />   
+</Context>
