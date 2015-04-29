@@ -3,19 +3,17 @@ package com;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.ObjectNode;
 
 public class UsedInformation {
-	 public static ArrayNode query(){
-	ObjectMapper mapper=new ObjectMapper();
-	//ObjectNode content_info=mapper.createObjectNode();
-	ArrayNode arrayNode=mapper.createArrayNode();
+	 public static ArrayList<HashMap<String, String>> query(){
+	ArrayList<HashMap<String,String>> List=new ArrayList<HashMap<String,String>>();	  
 	  PreparedStatement sta;
 	    Connection conn;
 	    ResultSet rs = null;
@@ -31,12 +29,11 @@ public class UsedInformation {
 //	    System.out.print(key);
 	    rs=sta.executeQuery();
 	    while(rs.next()){
-	    	ObjectNode info_information=mapper.createObjectNode();
-	    	info_information.put("md5_id" , rs.getString(1));
+	    	HashMap<String, String> map = new HashMap<String , String>();
+			map.put("md5_id" , rs.getString(1));
 			
-			arrayNode.add(info_information);
+			List.add(map);
 		  }
-	    //content_info.put("arrayNode", arrayNode);
 	    //System.out.println(count);
 	    rs.close();
 	    sta.close();
@@ -46,7 +43,7 @@ public class UsedInformation {
 		   System.out.println("ERROR: " + ex.getMessage());
 	   }
 	   
-	  return arrayNode;
+	  return List;
 	  
 }
 }
