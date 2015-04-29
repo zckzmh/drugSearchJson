@@ -1,8 +1,6 @@
 package api;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,19 +34,10 @@ public class IndexAccessDeal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//String key=request.getParameter("producer");
-		ArrayList<HashMap<String,String>> List=com.UsedInformation.query();
-		//String name=request.getParameter("name");
-		//String md5_id=com.IndexAccess.query(key);
-		//arrayNode=com.UsedInformation.query();
-		for(int i=0;i<5;i++){
-			ObjectNode info_information=mapper.createObjectNode();
-	    	info_information.put("name" , com.IndexAccessDetail.show(List.get(i).get("md5_id")).get(0).get("name"));
-	    	info_information.put("product_name", com.IndexAccessDetail.show(List.get(i).get("md5_id")).get(0).get("product_name"));
-	    	info_information.put("producer", com.IndexAccessDetail.show(List.get(i).get("md5_id")).get(0).get("producer"));
-	    	info_information.put("md5_id", List.get(i).get("md5_id"));
-			arrayNode.add(info_information);
-		}
+		String key=request.getParameter("producer");
+		String name=request.getParameter("name");
+		String md5_id=com.IndexAccess.query(key);
+		arrayNode=com.detailInformationAccess.show(md5_id);
 		if(arrayNode!=null){
 			content.put("status", 200);
 			content.put("msg", "succeed");
@@ -57,7 +46,7 @@ public class IndexAccessDeal extends HttpServlet {
 			content.put("status", 700);
 			content.put("msg", "hele server error");
 		}
-		//content.put("name", name);
+		content.put("name", name);
 		content.put("arrayNode", arrayNode);
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Access-Control-Allow-Origin","*");
